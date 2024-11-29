@@ -1,6 +1,6 @@
 import { db } from '../db/drizzle';
-import { getTodoById,updateTodo, getTodoList,insertTodo} from '../repositories/todo.repository.ts';
-import { putTodoRoute, getListTodoRoute, getTodoRoute,postTodoRoute } from '../routes/todo.route';
+import { getTodoById,updateTodo,deleteTodo, getTodoList,insertTodo} from '../repositories/todo.repository.ts';
+import { deleteTodoRoute, putTodoRoute, getListTodoRoute, getTodoRoute,postTodoRoute } from '../routes/todo.route';
 import { createRouter } from '../utils/router-factory';
 import {PostTodobodySchema, PutTodoBodySchema} from '../types/todo.type.ts';
 
@@ -31,3 +31,10 @@ todoRouter.openapi(putTodoRoute, async (c) =>{
   const todo = await updateTodo(db,obj,id);
   return c.json(todo,200);
 });
+
+todoRouter.openapi(deleteTodoRoute, async (c) =>{
+  const {id} = c.req.valid('param');
+  const todo = await deleteTodo(db,id);
+  return c.json(todo,200);
+})
+

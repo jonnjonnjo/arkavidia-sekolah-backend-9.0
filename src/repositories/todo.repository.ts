@@ -32,3 +32,7 @@ export const insertTodo = async(db:Database, todoInsert: PostTodoBodySchema) =>{
 export const updateTodo = async(db:Database, todoUpdate:PutTodoBodySchema, id:String)=>{
   return await db.update(todo).set(todoUpdate).where(eq(todo.id,id)).returning(); 
 }
+
+export const deleteTodo = async(db:Database, id:string)=>{
+  return await db.delete(todo).where(eq(todo.id,id)).returning();
+}
