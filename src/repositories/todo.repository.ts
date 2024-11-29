@@ -1,7 +1,7 @@
 import { eq,and } from 'drizzle-orm';
 import type { Database } from '../db/drizzle';
 import { todo } from '../db/schema/todo.schema';
-import {PostTodoBodySchema} from '../types/todo.type.ts';
+import {PutTodoBodySchema, PostTodoBodySchema} from '../types/todo.type.ts';
 
 export const getTodoById = async (db: Database, id: string) => {
 	return await db.select().from(todo).where(eq(todo.id, id));
@@ -28,3 +28,7 @@ export const getTodoList = async(db:Database, userId?:string,isCompleted?:boolea
 export const insertTodo = async(db:Database, todoInsert: PostTodoBodySchema) =>{
   return await db.insert(todo).values(todoInsert).returning();
 };
+
+export const updateTodo = async(db:Database, todoUpdate:PutTodoBodySchema, id:String)=>{
+  return await db.update(todo).set(todoUpdate).where(eq(todo.id,id)).returning(); 
+}
