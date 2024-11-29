@@ -25,3 +25,5 @@ export const user = pgTable('user', {
 export const userRelation = relations(user, ({ one, many }) => ({
 	todo: many(todo),
 }));
+
+export type User = InferSelectModel<typeof user>

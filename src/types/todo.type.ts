@@ -11,14 +11,14 @@ export const ListTodoSchema = z.array(TodoSchema);
 
 /** RESPONSE SCHEMAS */
 export const GetListTodoQuerySchema = z.object({
-	isCompleted: z.boolean().openapi({
+	isCompleted: z.boolean().optional().openapi({
 		param: {
 			in: 'query',
 			example: true,
 			required: false,
 		},
 	}),
-	userId: z.string().openapi({
+	userId: z.string().optional().openapi({
 		param: {
 			in: 'query',
 			example: 'arpjv19i',
